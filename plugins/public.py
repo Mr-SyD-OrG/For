@@ -24,9 +24,7 @@ async def run(bot, message):
         bots_ids = await bot.listen(chat_id=user_id, timeout=300)
         if bots_ids.text=="/cancel":
            await bots_ids.delete()
-           return await text.edit_text(
-                 "Process Canceled",
-                 reply_markup=InlineKeyboardMarkup(buttons))
+           return await text.edit_text("Process Canceled")
         elif not bots_ids.forward_date:
            await bots_ids.delete()
            return await text.edit_text("This Is Not A Forward Message")
@@ -38,11 +36,9 @@ async def run(bot, message):
            bot_token = bot_token[0] if bot_token else None
            user_nam = re.findall(r'@[A-Za-z_-]+bot', message.text, re.IGNORECASE)
            username = user_nam[0].lstrip('@') if user_nam else None
-         bots = await db.add_bot(user_id=user_id, bot_id=bot_id, bot_token=bot_token, username=username)
-         await bots_ids.delete()
-         await text.edit_text(
-            "Successfully Updated" if bot else "This Channel Already Added",
-            reply_markup=InlineKeyboardMarkup(buttons))
+        bots = await db.add_bot(user_id=user_id, bot_id=bot_id, bot_token=bot_token, username=username)
+        await bots_ids.delete()
+        await text.edit_text("Successfully Updated" if bot else "This Channel Already Added")
     except asyncio.exceptions.TimeoutError:
          await text.edit_text('Process Has Been Automatically Cancelled', reply_markup=InlineKeyboardMarkup(buttons))
   
