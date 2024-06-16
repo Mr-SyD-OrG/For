@@ -1,6 +1,9 @@
 
 import re
 import asyncio 
+import os
+import sys
+import typing  
 from .utils import STS
 from database import db
 from config import temp 
@@ -59,10 +62,12 @@ async def run(bot, message):
                 'name': user_name,
                 'username': user_names
             }
-        bots = await db.add_bot(user_id=user_id, bot_id=bot_id, bot_token=bot_token, username=username)
-        await bots_ids.delete()
-        await msg.delete()
-        await text.edit_text("Successfully Updated" if bot else "This Channel Already Added")
+            bots = await db.add_bot(user_id=user_id, bot_id=bot_id, bot_token=bot_token, username=username)
+            await bots_ids.delete()
+            await msg.edit_text(f"sᴜᴄᴄᴇssғᴜʟʟʏ ᴄʟᴏɴᴇᴅ ʏᴏᴜʀ ʙᴏᴛ: @{bot.username}.")
+        except BaseException as e:
+                logging.exception("Error while cloning bot.")
+                await msg.edit_text(f"⚠️ <b>Bot Error:</b>\n\n<code>{e}</code>\n\n**Kindly forward this message to @SyD_XyZ to get assistance.**")
     except asyncio.exceptions.TimeoutError:
          await text.edit_text('Process Has Been Automatically Cancelled', reply_markup=InlineKeyboardMarkup(buttons))
   
