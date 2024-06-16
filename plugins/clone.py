@@ -9,7 +9,7 @@ import asyncio
 from pymongo import MongoClient
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from database.users_chats_db import db
+from database import db
 from pyrogram.errors.exceptions.bad_request_400 import AccessTokenExpired, AccessTokenInvalid
 from config import Config
 
