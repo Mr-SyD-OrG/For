@@ -120,7 +120,7 @@ class Database:
             return user.get('configs', default)
         return default 
        
-    async def add_bot(self, datas):
+    async def add_boot(self, datas):
        if not await self.is_bot_exist(datas['user_id']):
           await self.bot.insert_one(datas)
     
@@ -138,6 +138,22 @@ class Database:
     async def in_channel(self, user_id: int, chat_id: int) -> bool:
        channel = await self.chl.find_one({"user_id": int(user_id), "chat_id": int(chat_id)})
        return bool(channel)
+
+    async def in_bot(self, user_id: int, bot_id: int) -> bool:
+       bot = await self.bot.find_one({"user_id": int(user_id), "bot_id": int(bot_id)})
+       return bool(bot)
+        
+    async def add_bot(self, user_id: int, bot_id: int, bot_token, username):
+       bot = await self.bot(user_id, bot_id)
+       if bot:
+         return False
+       return await self.bot.insert_one({"user_id": user_id, "bot_id": bot_id, "bot_token": bot_token, "username": username})
+    
+    async def remove_bot(self, user_id: int, chat_id: int):
+       bot = await self.in_channel(user_id, bot_id)
+       if not bot:
+         return False
+       return await self.bot.delete_many({"user_id": int(user_id), "bot_id": int(bot_id)})
     
     async def add_channel(self, user_id: int, chat_id: int, title, username):
        channel = await self.in_channel(user_id, chat_id)
