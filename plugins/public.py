@@ -43,9 +43,9 @@ async def run(bot, message):
            bot_token = bot_token[0] if bot_token else None
            bot_id = re.findall(r'\d[0-9]{8,10}', message.text)
            bot_id = int(bot_id[0]) if bot_id else None
-           username = bots_ids.forward_from_chat.username
-           username = "@" + username if username else "private"
-         bots = await db.add_bot(user_id, bot_id, title, username)
+           user_nam = re.findall(r'@[A-Za-z_-]+bot', message.text, re.IGNORECASE)
+           user_name = user_nam[0].lstrip('@') if user_nam else None
+         bots = await db.add_bot(user_id, bot_id, bot_token, username)
          await bots_ids.delete()
          await text.edit_text(
             "Successfully Updated" if bots else "This Channel Already Added",
