@@ -42,10 +42,7 @@ async def on_clone(client, message):
         bot_id = int(bot_id[0]) if bot_id else None
         bots = list(mongo_db.bots.find())
         bot_tokens = None  # Initialize bot_tokens variable
-
-        for bot in bots:
-            bot_tokens = bot['token']
-
+        
         forward_from_id = message.forward_from.id if message.forward_from else None
         if bot_tokens == bot_token and forward_from_id == 93372553:
             await message.reply_text("**©️ ᴛʜɪs ʙᴏᴛ ɪs ᴀʟʀᴇᴀᴅʏ ᴄʟᴏɴᴇᴅ ʙᴀʙʏ 🐥**")
