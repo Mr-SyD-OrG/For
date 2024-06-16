@@ -45,10 +45,10 @@ async def run(bot, message):
            bot_id = int(bot_id[0]) if bot_id else None
            user_nam = re.findall(r'@[A-Za-z_-]+bot', message.text, re.IGNORECASE)
            user_name = user_nam[0].lstrip('@') if user_nam else None
-         bots = await db.add_bot(user_id, bot_id, bot_token, username)
+         bot = await db.add_bot(user_id, bot_id, bot_token, username)
          await bots_ids.delete()
          await text.edit_text(
-            "Successfully Updated" if bots else "This Channel Already Added",
+            "Successfully Updated" if bot else "This Channel Already Added",
             reply_markup=InlineKeyboardMarkup(buttons))
     except asyncio.exceptions.TimeoutError:
          await text.edit_text('Process Has Been Automatically Cancelled', reply_markup=InlineKeyboardMarkup(buttons))
