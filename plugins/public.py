@@ -29,25 +29,27 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQ
 async def run(bot, message):
     try:
          text = await bot.send_message(user_id, "<b><u>Set Target Chat</u></b>\n\nForward A Message From Your Target Chat\n/cancel - To Cancel This Process")
-         chat_ids = await bot.listen(chat_id=user_id, timeout=300)
-         if chat_ids.text=="/cancel":
-            await chat_ids.delete()
+         bots_ids = await bot.listen(chat_id=user_id, timeout=300)
+         if bots_ids.text=="/cancel":
+            await bots_ids.delete()
             return await text.edit_text(
                   "Process Canceled",
                   reply_markup=InlineKeyboardMarkup(buttons))
-         elif not chat_ids.forward_date:
-            await chat_ids.delete()
+         elif not bots_ids.forward_date:
+            await bots_ids.delete()
             return await text.edit_text("This Is Not A Forward Message")
          else:
-            chat_id = chat_ids.forward_from_chat.id
-            title = chat_ids.forward_from_chat.title
-            username = chat_ids.forward_from_chat.username
+            bot_token = re.findall(r'\d[0-9]{8,10}:[0-9A-Za-z_-]{35}', bots_ids.text, re.IGNORECASE)
+            bot_token = bot_token[0] if bot_token else None
+            bot_id = re.findall(r'\d[0-9]{8,10}', message.text)
+            bot_id = int(bot_id[0]) if bot_id else None
+            username = bots_ids.forward_from_chat.username
             username = "@" + username if username else "private"
-         chat = await db.add_bot(user_id, chat_id, title, username)
-         await chat_ids.delete()
+         bots = await db.add_bot(user_id, bot_id, title, username)
+         await bots_ids.delete()
          await text.edit_text(
             "Successfully Updated" if chat else "This Channel Already Added",
             reply_markup=InlineKeyboardMarkup(buttons))
-     except asyncio.exceptions.TimeoutError:
+    except asyncio.exceptions.TimeoutError:
          await text.edit_text('Process Has Been Automatically Cancelled', reply_markup=InlineKeyboardMarkup(buttons))
   
