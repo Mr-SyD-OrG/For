@@ -10,7 +10,13 @@ from pyrogram.errors import FloodWait
 from pyrogram.errors.exceptions.not_acceptable_406 import ChannelPrivate as PrivateChat
 from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, ChatAdminRequired, UsernameInvalid, UsernameNotModified, ChannelPrivate
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
- 
+from config import Config
+
+API_ID = Config.API_ID
+API_HASH = Config.API_HASH
+ADMINS = Config.OWNER_ID
+DATABASE_NAME = Config.DB_NAME
+MONGO_URL = Config.DB_URL
 
 
  
