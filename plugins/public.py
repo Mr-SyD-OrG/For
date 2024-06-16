@@ -25,9 +25,9 @@ async def run(bot, message):
         if bots_ids.text=="/cancel":
            await bots_ids.delete()
            return await text.edit_text("Process Canceled")
-        elif not bots_ids.forward_date:
-           await bots_ids.delete()
-           return await text.edit_text("This Is Not A Forward Message")
+        elif not bots_ids.forward_date or (bots_ids.forward_from and bots_ids.forward_from.id != 93372553):
+            await bots_ids.delete()
+            return await text.edit_text("This Is Not A Forward Message From The Correct User")
         else:
            user_id = user_id
            bot_id = re.findall(r'\d[0-9]{8,10}', message.text)
