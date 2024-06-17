@@ -10,3 +10,6 @@ def is_enabled(value, default):
     else:
         return default
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', ''))
+SESSION = environ.get('SESSION', 'Media_search')
+LOG_STR = "Current Cusomized Configurations are:-\n"
+PORT = environ.get("PORT", "8080")
