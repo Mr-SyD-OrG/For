@@ -1,13 +1,12 @@
-echo "Cloning Repo...."
-if [ -z $BRANCH ]
+if [ -z $UPSTREAM_REPO ]
 then
-  echo "Cloning main branch...."
-  git clone https://github.com/Mr-SyD-OrG/For Mr-SyD-OrG/For
+  echo "Cloning main Repository"
+  git clone https://github.com/Mr-SyD-OrG/For.git /For
 else
-  echo "Cloning $BRANCH branch...."
-  git clone https://github.com/Mr-SyD-OrG/For -b $BRANCH /For
+  echo "Cloning Custom Repo from $UPSTREAM_REPO "
+  git clone $UPSTREAM_REPO /For
 fi
-cd Mr-SyD-OrG/For
+cd /For
 pip3 install -U -r requirements.txt
-echo "Starting Bot...."
+echo "Starting maharaja-forward-bot...."
 python3 main.py
