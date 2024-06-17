@@ -1,86 +1,104 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) ACE 
-import pytz
-import os
-from datetime import date, datetime 
+import logging
+import logging.config
+
+# Get logging configurations
+logging.config.fileConfig('logging.conf')
+logging.getLogger().setLevel(logging.INFO)
+logging.getLogger("pyrogram").setLevel(logging.ERROR)
+logging.getLogger("imdbpy").setLevel(logging.ERROR)
+
+from pyrogram import Client, __version__
+from pyrogram.raw.all import layer
+from database.ia_filterdb import Media
+from database.users_chats_db import db
+from info import SESSION, LOG_STR, LOG_CHANNEL, PORT
+from utils import temp
 from config import Config
-from info import LOG_CHANNEL
-from pyrogram import Client as ACE , idle
-import asyncio, logging
-import tgcrypto
-from aiohttp import web
-from pyromod import listen
-from logging.handlers import RotatingFileHandler
-from aiohttp import web
-from route import routes
+from typing import Union, Optional, AsyncGenerator
+from pyrogram import types
+from datetime import date, datetime 
+import pytz
 
+API_ID = Config.API_ID
+API_HASH = Config.API_HASH
+BOT_TOKEN = Config.BOT_TOKEN
 
-async def web_server():
-    web_app = web.Application(client_max_size=30000000)
-    web_app.add_routes(routes)
-    return web_app
-    
+class Bot(Client):
 
-PORT = "8080"
-RESTART_TXT = "hi"
+    def __init__(self):
+        super().__init__(
+            name=SESSION,
+            api_id=API_ID,
+            api_hash=API_HASH,
+            bot_token=BOT_TOKEN,
+            workers=50,
+            plugins={"root": "plugins"},
+            sleep_threshold=5,
+        )
 
-LOGGER = logging.getLogger(__name__)
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(name)s - %(message)s",
-    datefmt="%d-%b-%y %H:%M:%S",
-    handlers=[
-        RotatingFileHandler(
-            "log.txt", maxBytes=5000000, backupCount=10
-        ),
-        logging.StreamHandler(),
-    ],
-)
-
-# Auth Users
-BOT_OWNER_ID = Config.OWNER_ID
-
-# Prefixes 
-prefixes = ["/", "~", "?", "!"]
-
-plugins = dict(root="plugins")
-if __name__ == "__main__" :
-    AceBot = ACE(
-        "AceBot",
-        bot_token=Config.BOT_TOKEN,
-        api_id=Config.API_ID,
-        api_hash=Config.API_HASH,
-        sleep_threshold=120,
-        plugins=plugins
-    )
-    
-    async def main():
-        await AceBot.start()
-        bot_info  = await AceBot.get_me()
-        LOGGER.info(f"<--- @{bot_info.username} Started (c) ACE --->")
-        today = date.today()
+    async def start(self):
+        b_users, b_chats = await db.get_banned()
+        temp.BANNED_USERS = b_users
+        temp.BANNED_CHATS = b_chats
+        await super().start()
+        await Media.ensure_indexes()
+        me = await self.get_me()
+        temp.ME = me.id
+        temp.U_NAME = me.username
+        temp.B_NAME = me.first_name
+        self.username = '@' + me.username
+        logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
+        logging.info(LOG_STR)
+        logging.info(script.LOGO)
         tz = pytz.timezone('Asia/Kolkata')
+        today = date.today()
         now = datetime.now(tz)
         time = now.strftime("%H:%M:%S %p")
-        await AceBot.send_message(chat_id=LOG_CHANNEL, text=RESTART_TXT)
-        app = web.AppRunner(await web_server())
-        await app.setup()
-        bind_address = "0.0.0.0"
-        await web.TCPSite(app, bind_address, PORT).start()
-        await idle()
-    
-    asyncio.get_event_loop().run_until_complete(main())
-    LOGGER.info(f"<---Bot Stopped-->")
+        await self.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
+
+    async def stop(self, *args):
+        await super().stop()
+        logging.info("Bot stopped. Bye.")
+
+    async def iter_messages(
+        self,
+        chat_id: Union[int, str],
+        limit: int,
+        offset: int = 0,
+    ) -> Optional[AsyncGenerator["types.Message", None]]:
+        """Iterate through a chat sequentially.
+        This convenience method does the same as repeatedly calling :meth:`~pyrogram.Client.get_messages` in a loop, thus saving
+        you from the hassle of setting up boilerplate code. It is useful for getting the whole chat messages with a
+        single call.
+        Parameters:
+            chat_id (``int`` | ``str``):
+                Unique identifier (int) or username (str) of the target chat.
+                For your personal cloud (Saved Messages) you can simply use "me" or "self".
+                For a contact that exists in your Telegram address book you can use his phone number (str).
+                
+            limit (``int``):
+                Identifier of the last message to be returned.
+                
+            offset (``int``, *optional*):
+                Identifier of the first message to be returned.
+                Defaults to 0.
+        Returns:
+            ``Generator``: A generator yielding :obj:`~pyrogram.types.Message` objects.
+        Example:
+            .. code-block:: python
+                for message in app.iter_messages("pyrogram", 1, 15000):
+                    print(message.text)
+        """
+        current = offset
+        while True:
+            new_diff = min(200, limit - current)
+            if new_diff <= 0:
+                return
+            messages = await self.get_messages(chat_id, list(range(current, current+new_diff+1)))
+            for message in messages:
+                yield message
+                current += 1
 
 
-
-
-
-
-
-# Jishu Developer 
-# Don't Remove Credit 🥺
-# Telegram Channel @Madflix_Bots
-# Backup Channel @JishuBotz
-# Developer @JishuDeveloper
+app = Bot()
+app.run()
