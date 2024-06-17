@@ -21,7 +21,7 @@ async def web_server():
     web_app.add_routes(routes)
     return web_app
     
-LOG_CHANNEL = Config.LOG_CHANNEL
+
 PORT = "8080"
 RESTART_TXT = "hi"
 
