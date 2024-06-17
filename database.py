@@ -170,9 +170,9 @@ class Database:
     async def get_channel_details(self, user_id: int, chat_id: int):
        return await self.chl.find_one({"user_id": int(user_id), "chat_id": int(chat_id)})
        
-    async def get_user_channels(self, user_id: int):
-       channels = self.chl.find({"user_id": int(user_id)})
-       return [channel async for channel in channels]
+    async def get_bots(self, user_id: int):
+       bots = self.chl.find({"user_id": int(user_id)})
+       return [bot async for bot in bots]
      
     async def get_filters(self, user_id):
        filters = []
