@@ -39,7 +39,7 @@ logging.basicConfig(
 )
 
 # Auth Users
-BOT_OWNER_ID = [ int(chat) for chat in Config.OWNER_ID.split(",") if chat != '']
+BOT_OWNER_ID = Config.OWNER_ID
 
 # Prefixes 
 prefixes = ["/", "~", "?", "!"]
