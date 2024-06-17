@@ -1,8 +1,4 @@
-# Jishu Developer 
-# Don't Remove Credit 🥺
-# Telegram Channel @Madflix_Bots
-# Backup Channel @JishuBotz
-# Developer @JishuDeveloper
+# @Syd_Xyz
 
 
 
@@ -77,10 +73,10 @@ async def settings_query(bot, query):
       
   elif type=="channels":
      buttons = []
-     bots = await db.get_user_channels(user_id)
-     for channel in channels:
-        buttons.append([InlineKeyboardButton(f"{channel['title']}",
-                         callback_data=f"settings#editchannels_{channel['chat_id']}")])
+     bots = await db.get_bots(user_id)
+     for bot in bots:
+        buttons.append([InlineKeyboardButton(f"{bot['username']}",
+                         callback_data=f"settings#editchannels_{bot['bot_id']}")])
      buttons.append([InlineKeyboardButton('✚ Add Channel ✚', 
                       callback_data="settings#addchannel")])
      buttons.append([InlineKeyboardButton('🔙 Back', 
