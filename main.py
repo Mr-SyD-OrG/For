@@ -5,7 +5,7 @@ import pytz
 import os
 from datetime import date, datetime 
 from config import Config
-# from info import PORT, LOG_CHANNEL
+from info import LOG_CHANNEL
 from pyrogram import Client as ACE , idle
 import asyncio, logging
 import tgcrypto
