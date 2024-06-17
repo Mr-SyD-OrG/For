@@ -49,7 +49,7 @@ async def run(bot, message):
             ai = Client(
                 f"{bot_token}", API_ID, API_HASH,
                 bot_token=bot_token,
-                plugins={"root": "clone_plugins"},
+                plugins={"root": "MrSyD"},
             )
             await ai.start()
             bot_info = await ai.get_me()
