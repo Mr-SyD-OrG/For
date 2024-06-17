@@ -6,7 +6,7 @@
 
 
 
-from os import environ,getenv
+import os
 
 class Config:
     API_ID = os.environ.get("API_ID", "")
@@ -16,7 +16,7 @@ class Config:
     DB_URL = os.environ.get("DB_URL", "")
     DB_NAME = os.environ.get("DB_NAME", "madflixbotz")
     OWNER_ID = [int(id) for id in os.environ.get("OWNER_ID", '').split()]
-    LOG_CHANNEL = int(environ.get("LOG_CHANNEL", ""))
+    
 
 class temp(object): 
     lock = {}
