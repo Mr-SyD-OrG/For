@@ -5,3 +5,6 @@ TgCrypto
 Dnspython
 aiohttp
 pytz
+bs4
+marshmallow==3.14.1
+
