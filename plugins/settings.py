@@ -19,7 +19,7 @@ CLIENT = CLIENT()
 
 
 
-@Client.on_message(filters.private & filters.command(['settings']))
+@Client.on_message(filters.private & filters.command(['edit']))
 async def settings(client, message):
     text="<b>Change Your Settings As Your Wish</b>"
     await message.reply_text(
@@ -77,7 +77,7 @@ async def settings_query(bot, query):
       
   elif type=="channels":
      buttons = []
-     channels = await db.get_user_channels(user_id)
+     bots = await db.get_user_channels(user_id)
      for channel in channels:
         buttons.append([InlineKeyboardButton(f"{channel['title']}",
                          callback_data=f"settings#editchannels_{channel['chat_id']}")])
