@@ -9,11 +9,18 @@ from config import Config
 from pyrogram import Client as ACE , idle
 import asyncio, logging
 import tgcrypto
-from plugins import web_server
 from aiohttp import web
 from pyromod import listen
 from logging.handlers import RotatingFileHandler
+from aiohttp import web
+from route import routes
 
+
+async def web_server():
+    web_app = web.Application(client_max_size=30000000)
+    web_app.add_routes(routes)
+    return web_app
+    
 LOG_CHANNEL = "-1001893049931"
 PORT = "8080"
 RESTART_TXT = "hi"
