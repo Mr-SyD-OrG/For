@@ -11,7 +11,7 @@ from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from database import db
 from info import SESSION, LOG_STR, LOG_CHANNEL, PORT
-from utils import temp
+from utilis import temp
 from config import Config
 from typing import Union, Optional, AsyncGenerator
 from pyrogram import types
