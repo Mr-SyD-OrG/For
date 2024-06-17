@@ -6,7 +6,7 @@
 
 
 
-import os
+from os import environ,getenv
 
 class Config:
     API_ID = os.environ.get("API_ID", "")
