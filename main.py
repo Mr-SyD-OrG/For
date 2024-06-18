@@ -7,6 +7,7 @@ logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("imdbpy").setLevel(logging.ERROR)
 
+from plugins import web_server
 from aiohttp import web
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
