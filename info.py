@@ -18,14 +18,15 @@ LOG_CHANNEL = int(environ.get('LOG_CHANNEL', ''))
 SESSION = environ.get('SESSION', 'Media_search')
 
 LOG_STR = "Current Cusomized Configurations are:-\n"
-PORT = environ.get("PORT", "8080")
-
 PICS = (environ.get('PICS', 'https://graph.org/file/e06884276bd3509a53789.jpg https://graph.org/file/b067051e3174a10d594dc.jpg https://graph.org/file/05533805967ce71b56ffd.jpg https://graph.org/file/076933e2890a49660cce2.jpg https://graph.org/file/4d2514ed8fe32a7c96e08.jpg https://graph.org/file/16bc6fddd93b4d7edf4a9.jpg https://graph.org/file/5fe4190f87099c28d0131.jpg https://graph.org/file/7b784b9f5f45f73983e6c.jpg https://graph.org/file/9b2e9d2efe57ab516fdf7.jpg https://graph.org/file/63cb1e6397c9ae5dafa18.jpg https://graph.org/file/2bd3bed47ae39163d593c.jpg https://graph.org/file/cbbb19d8db5cfe3a74a9f.jpg https://graph.org/file/4e4d3947cf48da07bbf00.jpg https://graph.org/file/4c768c2f4678b4eb991b8.jpg https://graph.org/file/fa4b19f5fe1a9f1ffce93.jpg https://graph.org/file/b311448e4638b103d9001.jpg https://graph.org/file/62579dd48a40cef899d2c.jpg https://graph.org/file/0c62f3a6ce5d511553b3f.jpg https://graph.org/file/d7cd6ba2b18819379b4a7.jpg https://graph.org/file/4976dc115338cddd99c38.jpg https://graph.org/file/f575a2c98328346e18269.jpg https://graph.org/file/830d4d71d92a882c1e838.jpg https://graph.org/file/cd36a4949e278d0692de2.jpg https://graph.org/file/bfa019019302879ec44c0.jpg https://graph.org/file/a0e6f952add3ad336c3e1.jpg https://graph.org/file/bfe6f373f9be4df3174b8.jpg https://graph.org/file/34de67d70e95582415ddc.jpg https://graph.org/file/803eb18697788d538aa7d.jpg https://graph.org/file/ed8814513f8fd5c5668c1.jpg https://graph.org/file/55d5bc0856d2cc8198553.jpg https://graph.org/file/2020172acb3e20b904fa4.jpg https://graph.org/file/ba0540b18a6350e4437b4.jpg https://graph.org/file/a2e7e286741620c45b71f.jpg https://graph.org/file/5a8176401dafeb33f8c1f.jpg https://graph.org/file/484aaa6042f8f6eb7bbfe.jpg https://graph.org/file/195d814b564d31ab85086.jpg https://graph.org/file/7cadab25fa7862a12816a.jpg')).split() #SAMPLE PIC
 NOR_IMG = environ.get("NOR_IMG", "https://graph.org/file/e20b5fdaf217252964202.jpg")
 MELCOW_VID = environ.get("MELCOW_VID", "https://graph.org/file/a56a9c555e43529b2d2f9.mp4")
 SPELL_IMG = environ.get("SPELL_IMG", "https://telegra.ph/file/86b7b7e2aa7e38f328902.jpg")
 SUBSCRIPTION = (environ.get('SUBSCRIPTION', 'https://graph.org/file/64afb8fff79e1b3d1706Fa'))
 CODE = (environ.get('CODE', 'https://graph.org/file/64afb8fff79e1b3d17066.jpg'))
+
+CACHE_TIME = int(environ.get('CACHE_TIME', 300))
+USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', True))
 
 #stream link shortner
 STREAM_SITE = (environ.get('STREAM_SITE', 'cuty.io'))
@@ -57,3 +58,34 @@ reqst_channel = environ.get('REQST_CHANNEL_ID', '') # request channel id ( make 
 REQST_CHANNEL = int(reqst_channel) if reqst_channel and id_pattern.search(reqst_channel) else None
 SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(support_chat_id) else None
 NO_RESULTS_MSG = bool(environ.get("NO_RESULTS_MSG", True)) # True if you want no results messages in Log Channel
+
+SHORTLINK_URL = environ.get('SHORTLINK_URL', 'gplinks.com')
+SHORTLINK_API = environ.get('SHORTLINK_API', '36d6dd04a79634bb5a4ae150903c78b9c9121ce6')
+IS_SHORTLINK = bool(environ.get('IS_SHORTLINK', False))
+WEBHOOK = bool(environ.get('WEBHOOK', True))
+DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '0').split()]
+MAX_B_TN = environ.get("MAX_B_TN", "5")
+MAX_BTN = is_enabled((environ.get('MAX_BTN', "True")), True)
+PORT = environ.get("PORT", "8080")
+GRP_LNK = environ.get('GRP_LNK', 'https://t.me/+DqCTrhaymr9mYWZl')
+CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/bot_cracker')
+TUTORIAL = environ.get('TUTORIAL', 'https://t.me/bot_cracker') # Tutorial video link for opening shortlink website 
+IS_TUTORIAL = bool(environ.get('IS_TUTORIAL', True))
+MSG_ALRT = environ.get('MSG_ALRT', '😇')
+SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'https://t.me/bot_cracker') #Support group link ( make sure bot is admin )
+P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "False")), False)
+IMDB = is_enabled((environ.get('IMDB', "False")), False)
+AUTO_FFILTER = is_enabled((environ.get('AUTO_FFILTER', "True")), True)
+AUTO_DELETE = is_enabled((environ.get('AUTO_DELETE', "True")), True)
+SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "True")), True)
+CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", f"{script.CAPTION}")
+BATCH_FILE_CAPTION = environ.get("BATCH_FILE_CAPTION", CUSTOM_FILE_CAPTION)
+IMDB_TEMPLATE = environ.get("IMDB_TEMPLATE", f"{script.IMDB_TEMPLATE_TXT}")
+LONG_IMDB_DESCRIPTION = is_enabled(environ.get("LONG_IMDB_DESCRIPTION", "False"), False)
+SPELL_CHECK_REPLY = is_enabled(environ.get("SPELL_CHECK_REPLY", "True"), True)
+MAX_LIST_ELM = environ.get("MAX_LIST_ELM", None)
+INDEX_REQ_CHANNEL = int(environ.get('INDEX_REQ_CHANNEL', LOG_CHANNEL))
+FILE_STORE_CHANNEL = [int(ch) for ch in (environ.get('FILE_STORE_CHANNEL', '')).split()]
+MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "True")), True)
+PROTECT_CONTENT = is_enabled((environ.get('PROTECT_CONTENT', "True")), True)
+PUBLIC_FILE_STORE = is_enabled((environ.get('PUBLIC_FILE_STORE', "True")), True)
