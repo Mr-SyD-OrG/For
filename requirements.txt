@@ -7,7 +7,8 @@ aiohttp
 pytz
 bs4
 umongo==3.1.0
-requests 
+requests
+git+https://github.com/Joelkb/cinemagoer
 bs4==0.0.1 
 gTTS==2.3.1
 motor==3.0.0 
