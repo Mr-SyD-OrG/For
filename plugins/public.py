@@ -19,7 +19,7 @@ async def run(bot, message):
         user_id = message.from_user.id
         text = await bot.send_message(
             user_id,
-            "<b><u>Set Bot</u></b>\n\nForward A Message From Bot Father ᴄᴀɴᴛɪᴀɴɪɴɢ ʏᴏᴜʀ ʙᴏᴛ ᴛᴏᴋᴇɴ... \n/cancel - To Cancel This Process"
+            "<b><u>Sᴇᴛ ᴀ Bᴏᴛ ;</u></b>\n\nFoʀᴡᴀʀᴅ A Message From Bot Father ᴄᴀɴᴛɪᴀɴɪɴɢ ʏᴏᴜʀ ʙᴏᴛ ᴛᴏᴋᴇɴ... \n/cancel - To Cancel This Process"
         )
 
         try:
