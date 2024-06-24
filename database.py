@@ -25,6 +25,7 @@ class Database:
         self.col = self.db.users
         self.nfy = self.db.notify
         self.chl = self.db.channels 
+        self.for = self.db.force
         
     def new_user(self, id, name):
         return dict(
@@ -120,19 +121,19 @@ class Database:
             return user.get('configs', default)
         return default 
        
-    async def add_boot(self, datas):
-       if not await self.is_bot_exist(datas['user_id']):
-          await self.bot.insert_one(datas)
+    async def add_forc(self, datas):
+       if not await self.is_forc_exist(datas['user_id']):
+          await self.for.insert_one(datas)
     
-    async def remove_bot(self, user_id):
-       await self.bot.delete_many({'user_id': int(user_id)})
+    async def remove_forc(self, user_id):
+       await self.for.delete_many({'user_id': int(user_id)})
       
-    async def get_bot(self, user_id: int):
-       bot = await self.bot.find_one({'user_id': user_id})
-       return bot if bot else None
+    async def get_forc(self, user_id: int):
+       foc = await self.for.find_one({'user_id': user_id})
+       return foc if foc else None
                                           
-    async def is_bot_exist(self, user_id):
-       bot = await self.bot.find_one({'user_id': user_id})
+    async def is_forc_exist(self, user_id):
+       foc = await self.for.find_one({'user_id': user_id})
        return bool(bot)
                                           
     async def in_channel(self, user_id: int, chat_id: int) -> bool:
