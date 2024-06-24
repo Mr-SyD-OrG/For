@@ -13,13 +13,13 @@ DATABASE_NAME = Config.DB_NAME
 MONGO_URL = Config.DB_URL
 
 
-@Client.on_message(filters.private & filters.command(["fwd", "forward"]))
+@Client.on_message(filters.private & filters.command(["syd", "clone"]))
 async def run(bot, message):
     try:
         user_id = message.from_user.id
         text = await bot.send_message(
             user_id,
-            "<b><u>Sᴇᴛ ᴀ Bᴏᴛ ;</u></b>\n\nFoʀᴡᴀʀᴅ A Message From Bot Father ᴄᴀɴᴛɪᴀɴɪɴɢ ʏᴏᴜʀ ʙᴏᴛ ᴛᴏᴋᴇɴ... \n/cancel - To Cancel This Process"
+            "<b><u>Sᴇᴛ ᴀ Bᴏᴛ ;</u></b>\n\nFoʀᴡᴀʀᴅ Δ Mᴇꜱꜱᴀɢᴇ Fʀᴏᴍ @Botfather Cᴀɴᴛɪᴀɴɪɴɢ Yᴏᴜʀ Bᴏᴛ Tᴏᴋᴇɴ... \n/cancel - To Cᴀɴᴄᴇʟ Tʜɪꜱ Pʀᴏᴄᴇꜱꜱ"
         )
 
         try:
@@ -29,12 +29,12 @@ async def run(bot, message):
 
         if bots_ids.text == "/cancel":
             await bots_ids.delete()
-            return await text.edit_text("Process Canceled")
+            return await text.edit_text("Pʀᴏᴄᴇꜱꜱ Cᴀɴᴄᴇʟᴇᴅ 🥺")
         elif not bots_ids.forward_date or (bots_ids.forward_from and bots_ids.forward_from.id != 93372553):
             await bots_ids.delete()
-            return await text.edit_text("This Is Not A Forward Message From The Correct User")
+            return await text.edit_text("Tʜɪꜱ  Iꜱ Nᴏᴛ A Fᴏʀᴡᴀʀᴅ Mᴇꜱꜱᴀɢᴇ Fʀᴏᴍ @BotFather")
         
-        msg = await message.reply_text("**👨‍💻 ᴡᴀɪᴛ ᴀ ᴍɪɴᴜᴛᴇ ɪ ᴀᴍ ᴄʀᴇᴀᴛɪɴɢ ʏᴏᴜʀ ʙᴏᴛ ❣️**")
+        msg = await message.reply_text("**Wᴀɪᴛ ᴀ ᴍɪɴᴜᴛᴇ ɪ ᴀᴍ ᴄʀᴇᴀᴛɪɴɢ ʏᴏᴜʀ ʙᴏᴛ... 🔅⚡🔅**")
 
         bot_id_match = re.findall(r'\d{8,10}', message.text)
         bot_id = int(bot_id_match[0]) if bot_id_match else None
