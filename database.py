@@ -25,7 +25,7 @@ class Database:
         self.col = self.db.users
         self.nfy = self.db.notify
         self.chl = self.db.channels 
-        self.for = self.db.force
+        self.foc = self.db.force
         
     def new_user(self, id, name):
         return dict(
@@ -123,18 +123,18 @@ class Database:
        
     async def add_forc(self, datas):
        if not await self.is_forc_exist(datas['user_id']):
-          await self.for.insert_one(datas)
+          await self.foc.insert_one(datas)
     
     async def remove_forc(self, user_id):
-       await self.for.delete_many({'user_id': int(user_id)})
+       await self.foc.delete_many({'user_id': int(user_id)})
       
     async def get_forc(self, user_id: int):
-       foc = await self.for.find_one({'user_id': user_id})
+       foc = await self.foc.find_one({'user_id': user_id})
        return foc if foc else None
                                           
     async def is_forc_exist(self, user_id):
-       foc = await self.for.find_one({'user_id': user_id})
-       return bool(bot)
+       foc = await self.foc.find_one({'user_id': user_id})
+       return bool(foc)
                                           
     async def in_channel(self, user_id: int, chat_id: int) -> bool:
        channel = await self.chl.find_one({"user_id": int(user_id), "chat_id": int(chat_id)})
