@@ -145,7 +145,7 @@ class Database:
        return bool(bot)
         
     async def add_bot(self, user_id: int, bot_id: int, bot_token, username):
-       bot = await self.bot(user_id, bot_id)
+       bot = await self.in_bot(user_id, bot_id)
        if bot:
          return False
        return await self.bot.insert_one({"user_id": user_id, "bot_id": bot_id, "bot_token": bot_token, "username": username})
