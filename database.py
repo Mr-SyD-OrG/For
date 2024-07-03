@@ -151,7 +151,7 @@ class Database:
        return await self.bot.insert_one({"user_id": user_id, "bot_id": bot_id, "bot_token": bot_token, "username": username})
     
     async def remove_bot(self, user_id: int, chat_id: int):
-       bot = await self.in_channel(user_id, bot_id)
+       bot = await self.in_bot(user_id, bot_id)
        if not bot:
          return False
        return await self.bot.delete_many({"user_id": int(user_id), "bot_id": int(bot_id)})
