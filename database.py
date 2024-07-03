@@ -21,7 +21,7 @@ class Database:
     def __init__(self, uri, database_name):
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
-        self.bot = self.db.bots
+        self.syd = self.db.bots
         self.col = self.db.users
         self.nfy = self.db.notify
         self.chl = self.db.channels 
@@ -141,20 +141,20 @@ class Database:
        return bool(channel)
 
     async def in_bot(self, user_id: int, bot_id: int) -> bool:
-       bot = await self.bot.find_one({"user_id": int(user_id), "bot_id": int(bot_id)})
+       bot = await self.syd.find_one({"user_id": int(user_id), "bot_id": int(bot_id)})
        return bool(bot)
         
     async def add_bot(self, user_id: int, bot_id: int, bot_token, username):
        bot = await self.in_bot(user_id, bot_id)
        if bot:
          return False
-       return await self.bot.insert_one({"user_id": user_id, "bot_id": bot_id, "bot_token": bot_token, "username": username})
+       return await self.syd.insert_one({"user_id": user_id, "bot_id": bot_id, "bot_token": bot_token, "username": username})
     
     async def remove_bot(self, user_id: int, chat_id: int):
        bot = await self.in_bot(user_id, bot_id)
        if not bot:
          return False
-       return await self.bot.delete_many({"user_id": int(user_id), "bot_id": int(bot_id)})
+       return await self.syd.delete_many({"user_id": int(user_id), "bot_id": int(bot_id)})
     
     async def add_channel(self, user_id: int, chat_id: int, title, username):
        channel = await self.in_channel(user_id, chat_id)
