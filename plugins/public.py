@@ -44,7 +44,8 @@ async def run(bot, message):
 
         user_nam_match = re.findall(r'@[A-Za-z_-]+bot', message.text, re.IGNORECASE)
         username = user_nam_match[0].lstrip('@') if user_nam_match else None
-
+        user_id = message.from_user.id
+        
         try:
             ai = Client(
                 f"{bot_token}", API_ID, API_HASH,
