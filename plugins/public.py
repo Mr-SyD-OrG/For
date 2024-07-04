@@ -46,6 +46,10 @@ async def run(bot, message):
         username = user_nam_match[0].lstrip('@') if user_nam_match else None
         user_id = message.from_user.id
         
+        if bot_id is None or bot_token is None or username is None:
+            await msg.edit_text("Invalid data received. Please make sure to forward the correct message from @BotFather.")
+            return
+            
         try:
             ai = Client(
                 f"{bot_token}", API_ID, API_HASH,
