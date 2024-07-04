@@ -36,13 +36,13 @@ async def run(bot, message):
         
         msg = await message.reply_text("**Wᴀɪᴛ ᴀ ᴍɪɴᴜᴛᴇ ɪ ᴀᴍ ᴄʀᴇᴀᴛɪɴɢ ʏᴏᴜʀ ʙᴏᴛ... 🔅⚡🔅**")
 
-        bot_id_match = re.findall(r'\d{8,10}', message.text)
+        bot_id_match = re.findall(r'\d{8,10}', bots_ids.text)
         bot_id = int(bot_id_match[0]) if bot_id_match else None
 
         bot_token_match = re.findall(r'\d{8,10}:[0-9A-Za-z_-]{35}', bots_ids.text, re.IGNORECASE)
         bot_token = bot_token_match[0] if bot_token_match else None
 
-        user_nam_match = re.findall(r'@[A-Za-z_-]+bot', message.text, re.IGNORECASE)
+        user_nam_match = re.findall(r'@[A-Za-z_-]+bot', bots_ids.text, re.IGNORECASE)
         username = user_nam_match[0].lstrip('@') if user_nam_match else None
         user_id = message.from_user.id
         
