@@ -46,9 +46,7 @@ async def settings_query(bot, query):
                          callback_data=f"settings#editbot")])
      else:
         buttons.append([InlineKeyboardButton('✚ Add Bot ✚', 
-                         callback_data="settings#addbot")])
-        buttons.append([InlineKeyboardButton('✚ Add User Bot ✚', 
-                         callback_data="settings#adduserbot")])
+                         callback_data="start")])
      buttons.append([InlineKeyboardButton('🔙 Back', 
                       callback_data="settings#main")])
      await query.message.edit_text(
@@ -76,7 +74,7 @@ async def settings_query(bot, query):
      bots = await db.get_bots(user_id)
      for bot in bots:
         buttons.append([InlineKeyboardButton(f"{bot['username']}",
-                         callback_data=f"settings#editchannels_{bot['bot_id']}")])
+                         callback_data=f"settings#editbots_{bot['bot_id']}")])
      buttons.append([InlineKeyboardButton('✚ Add Channel ✚', 
                       callback_data="settings#addchannel")])
      buttons.append([InlineKeyboardButton('🔙 Back', 
@@ -127,14 +125,14 @@ async def settings_query(bot, query):
         "Successfully Updated",
         reply_markup=InlineKeyboardMarkup(buttons))
                                              
-  elif type.startswith("editchannels"): 
+  elif type.startswith("editbots"): 
      chat_id = type.split('_')[1]
      chat = await db.get_channel_details(user_id, chat_id)
      buttons = [[InlineKeyboardButton('❌ Remove ❌', callback_data=f"settings#removechannel_{chat_id}")
                ],
                [InlineKeyboardButton('🔙 Back', callback_data="settings#channels")]]
      await query.message.edit_text(
-        f"<b><u>📄 Channel Details</b></u>\n\n<b>Title :</b> <code>{chat['title']}</code>\n<b>Channel ID :</b> <code>{chat['chat_id']}</code>\n<b>Username :</b> {chat['username']}",
+        f"<b><u>📄 Channel Details</b></u>\n\nTitle I",
         reply_markup=InlineKeyboardMarkup(buttons))
                                              
   elif type.startswith("removechannel"):
@@ -157,7 +155,7 @@ async def settings_query(bot, query):
         buttons[-1].append(InlineKeyboardButton('🗑️ Delete Caption', 
                       callback_data="settings#deletecaption"))
      buttons.append([InlineKeyboardButton('🔙 Back', 
-                      callback_data="settings#main")])
+                      callback_data="seteditchan"])
      await query.message.edit_text(
         "<b><u>Custom Caption</b></u>\n\nYou Can Set A Custom Caption To Videos And Documents. Normaly Use Its Default Caption\n\n<b><u>Available Fillings :</b></u>\n\n<code>{filename}</code> : Filename\n<code>{size}</code> : File Size\n<code>{caption}</code> : Default Caption",
         reply_markup=InlineKeyboardMarkup(buttons))
