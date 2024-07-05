@@ -170,6 +170,9 @@ class Database:
     
     async def get_channel_details(self, user_id: int, chat_id: int):
        return await self.chl.find_one({"user_id": int(user_id), "chat_id": int(chat_id)})
+
+    aync def get_bot_details(self, user_id: int, bot_id: int):
+       return await self.syd.find_one({"user_id": int(user_id), "bot_id": int(bot_id)})
        
     async def get_bots(self, user_id: int):
        bots = self.syd.find({"user_id": int(user_id)})
