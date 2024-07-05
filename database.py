@@ -10,6 +10,7 @@ from os import environ
 from config import Config
 import motor.motor_asyncio
 from pymongo import MongoClient
+from info import AUTH_CHANNEL
 
 async def mongodb_version():
     x = MongoClient(Config.DB_URL)
@@ -26,6 +27,7 @@ class Database:
         self.nfy = self.db.notify
         self.chl = self.db.channels 
         self.foc = self.db.force
+        self.edt = self.db.setting
         
     def new_user(self, id, name):
         return dict(
@@ -120,16 +122,31 @@ class Database:
         if user:
             return user.get('configs', default)
         return default 
-       
+
+    async def update_configs(self, user_id, bot_id, configs):
+        await self.col.update_one(
+            {'user_id': int(user_id), 'bot_id': int(bot_id)},
+            {'$set': {'configs': configs}}
+        )
+
+    async def get_edit(self, user_id, bot_id):
+        default = {
+            'forc_id': AUTH_CHANNEL,
+        }
+    user = await self.edt.find_one({'user_id': int(user_id), 'bot_id': int(bot_id)})
+    if user:
+        return user.get('configs', default)
+    return default
+
     async def add_forc(self, datas):
-       if not await self.is_forc_exist(datas['user_id']):
+       if not await self.is_forc_exist(datas['bot_id']):
           await self.foc.insert_one(datas)
     
     async def remove_forc(self, user_id):
-       await self.foc.delete_many({'user_id': int(user_id)})
+       await self.foc.delete_many({'bot_id': int(bot_id)})
       
     async def get_forc(self, user_id: int):
-       foc = await self.foc.find_one({'user_id': user_id})
+       foc = await self.foc.find_one({'bot_id': bot_id})
        return foc if foc else None
                                           
     async def is_forc_exist(self, user_id):
