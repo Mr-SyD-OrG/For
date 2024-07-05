@@ -38,51 +38,37 @@ async def settings_query(bot, query):
        "<b>Change Your Settings As Your Wish</b>",
        reply_markup=main_buttons())
        
+ 
   elif type=="bots":
-     buttons = [] 
-     _bot = await db.get_bots(user_id)
-     if _bot is not None:
-        buttons.append([InlineKeyboardButton(f"{_bot['username']}",
-                         callback_data=f"settings#editbot")])
-     else:
-        buttons.append([InlineKeyboardButton('✚ Add Bot ✚', 
-                         callback_data="start")])
-     buttons.append([InlineKeyboardButton('🔙 Back', 
-                      callback_data="settings#main")])
-     await query.message.edit_text(
-       "<b><u>My Bots</u></b>\n\nYou Can Manage Your Bots In Here",
-       reply_markup=InlineKeyboardMarkup(buttons))
-  
-  elif type=="addbot":
-     await query.message.delete()
-     bot = await CLIENT.add_bot(bot, query)
-     if bot != True: return
-     await query.message.reply_text(
-        "<b>Bot Token Successfully Added To Database</b>",
-        reply_markup=InlineKeyboardMarkup(buttons))
-  
-  elif type=="adduserbot":
-     await query.message.delete()
-     user = await CLIENT.add_session(bot, query)
-     if user != True: return
-     await query.message.reply_text(
-        "<b>Session Successfully Added To Database</b>",
-        reply_markup=InlineKeyboardMarkup(buttons))
-      
-  elif type=="channels":
      buttons = []
      bots = await db.get_bots(user_id)
      for bot in bots:
         buttons.append([InlineKeyboardButton(f"{bot['username']}",
                          callback_data=f"settings#editbots_{bot['bot_id']}")])
-     buttons.append([InlineKeyboardButton('✚ Add Channel ✚', 
+     buttons.append([InlineKeyboardButton('✚ Aᴅᴅ Bᴏᴛꜱ ✚', 
                       callback_data="settings#addchannel")])
      buttons.append([InlineKeyboardButton('🔙 Back', 
                       callback_data="settings#main")])
      await query.message.edit_text( 
        "<b><u>My Channels</u></b>\n\nYou Can Manage Your Target Chats In Here",
        reply_markup=InlineKeyboardMarkup(buttons))
-   
+      
+   elif type=="bots":
+     buttons = [] 
+     _bot = await db.get_bots(user_id)
+     for _bot in bots:
+        buttons.append([InlineKeyboardButton(f"{_bot['username']}",
+                         callback_data=f"settings#editbot_{_bot['bot_id']}")])
+     else:
+        buttons.append([InlineKeyboardButton('✚ Add Bot ✚', 
+                         callback_data='start')])
+     buttons.append([InlineKeyboardButton('🔙 Back', 
+                      callback_data="settings#main")])
+     await query.message.edit_text(
+       "<b><u>My Bots</u></b>\n\nYou Can Manage Your Bots In Here",
+       reply_markup=InlineKeyboardMarkup(buttons))
+  
+  
   elif type=="addchannel":  
      await query.message.delete()
      try:
@@ -409,10 +395,8 @@ async def settings_query(bot, query):
       
 def main_buttons():
   buttons = [[
-       InlineKeyboardButton('🤖 Bots',
-                    callback_data=f'settings#bots'),
-       InlineKeyboardButton('🔥 Channels',
-                    callback_data=f'settings#channels')
+       InlineKeyboardButton('⚡ Bᴏᴛꜱ ⚡',
+                    callback_data=f'settings#bots')
        ],[
        InlineKeyboardButton('✏️ Caption',
                     callback_data=f'settings#caption'),
