@@ -155,7 +155,7 @@ async def settings_query(bot, query):
         buttons[-1].append(InlineKeyboardButton('🗑️ Delete Caption', 
                       callback_data="settings#deletecaption"))
      buttons.append([InlineKeyboardButton('🔙 Back', 
-                      callback_data="seteditchan"])
+                      callback_data="seteditchan")])
      await query.message.edit_text(
         "<b><u>Custom Caption</b></u>\n\nYou Can Set A Custom Caption To Videos And Documents. Normaly Use Its Default Caption\n\n<b><u>Available Fillings :</b></u>\n\n<code>{filename}</code> : Filename\n<code>{size}</code> : File Size\n<code>{caption}</code> : Default Caption",
         reply_markup=InlineKeyboardMarkup(buttons))
