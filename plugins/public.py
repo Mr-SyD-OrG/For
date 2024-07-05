@@ -43,7 +43,8 @@ async def run(bot, message):
         bot_token = bot_token_match[0] if bot_token_match else None
 
         user_nam_match = re.findall(r'@[A-Za-z_-]+bot', bots_ids.text, re.IGNORECASE)
-        username = user_nam_match[0].lstrip('@') if user_nam_match else None
+        username = user_nam_match[0].lstrip('@') if user_nam_match else another
+        another = re.findall(r't.me/[A-Za-z_-]+bot', bots_ids.text, re.IGNORECASE)
         user_id = message.from_user.id
         
         if username is None:
