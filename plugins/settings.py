@@ -56,7 +56,7 @@ async def settings_query(bot, query):
   elif type=="syd":
      buttons = [] 
      _bot = await db.get_bots(user_id)
-     for _bot in bots:
+     for _bot in _bots:
         buttons.append([InlineKeyboardButton(f"{_bot['username']}",
                          callback_data=f"settings#editbot_{_bot['bot_id']}")])
      else:
@@ -112,9 +112,11 @@ async def settings_query(bot, query):
         reply_markup=InlineKeyboardMarkup(buttons))
                                              
   elif type.startswith("editbots"): 
-     chat_id = type.split('_')[1]
-     chat = await db.get_channel_details(user_id, chat_id)
-     buttons = [[InlineKeyboardButton('❌ Remove ❌', callback_data=f"settings#removechannel_{chat_id}")
+     bot_id = type.split('_')[1]
+     bot = await db.get_bot_details(user_id, chat_id)
+     buttons = [[InlineKeyboardButton('❌ Remove ❌', callback_data=f"settings#removechannel_{bot_id}")
+               ],[
+                 InlineKeyboardButton('ꜰꜱᴜʙ', callback_data=f"settings#forc_{bot_id}")
                ],
                [InlineKeyboardButton('🔙 Back', callback_data="settings#channels")]]
      await query.message.edit_text(
