@@ -53,7 +53,7 @@ async def settings_query(bot, query):
        "<b><u>My Channels</u></b>\n\nYou Can Manage Your Target Chats In Here",
        reply_markup=InlineKeyboardMarkup(buttons))
       
-   elif type=="bots":
+   elif type=="syd":
      buttons = [] 
      _bot = await db.get_bots(user_id)
      for _bot in bots:
@@ -411,7 +411,7 @@ def main_buttons():
        InlineKeyboardButton('⚙️ Extra Settings',
                     callback_data='settings#nextfilters')
        ],[      
-       InlineKeyboardButton('🔙 Back', callback_data='back')
+       InlineKeyboardButton('🔙 Back', callback_data='settings#syd')
        ]]
   return InlineKeyboardMarkup(buttons)
 
