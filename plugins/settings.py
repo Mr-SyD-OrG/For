@@ -53,7 +53,7 @@ async def settings_query(bot, query):
        "<b><u>My Channels</u></b>\n\nYou Can Manage Your Target Chats In Here",
        reply_markup=InlineKeyboardMarkup(buttons))
       
-   elif type=="syd":
+  elif type=="syd":
      buttons = [] 
      _bot = await db.get_bots(user_id)
      for _bot in bots:
