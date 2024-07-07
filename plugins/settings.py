@@ -129,7 +129,35 @@ async def settings_query(bot, query):
      await query.message.edit_text(
         "Successfully Updated",
         reply_markup=InlineKeyboardMarkup(buttons))
+
+
+  elif type=="forc":
+     buttons = []
+     bot_id = type.split('_')[1]
+     data = await get_edit(user_id, bot_id)
+     forc = data['forc_id']
+     if forc is None:
+        buttons.append([InlineKeyboardButton('✚ Add Caption ✚', 
+                      callback_data="settings#addcaption")])
+     else:
+        buttons.append([InlineKeyboardButton('👀 See Caption', 
+                      callback_data="settings#seecaption")])
+        buttons[-1].append(InlineKeyboardButton('🗑️ Delete Caption', 
+                      callback_data="settings#deletecaption"))
+     buttons.append([InlineKeyboardButton('🔙 Back', 
+                      callback_data="seteditchan")])
+     await query.message.edit_text(
+        "<b><u>Custom Caption</b></u>\n\nYou Can Set A Custom Caption To Videos And Documents. Normaly Use Its Default Caption\n\n<b><u>Available Fillings :</b></u>\n\n<code>{filename}</code> : Filename\n<code>{size}</code> : File Size\n<code>{caption}</code> : Default Caption",
+        reply_markup=InlineKeyboardMarkup(buttons))
                                
+  
+  elif type=="deletecaption":
+     await update_configs(user_id, bot_id, 'forc_id', AUTH_CHANNEL)
+     await query.message.edit_text(
+        "Successfully Updated",
+        reply_markup=InlineKeyboardMarkup(buttons))
+                              
+  elif type=="addforc":
   elif type=="caption":
      buttons = []
      data = await get_configs(user_id)
