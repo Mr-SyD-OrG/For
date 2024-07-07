@@ -133,10 +133,11 @@ class Database:
         default = {
             'forc_id': AUTH_CHANNEL,
         }
-    user = await self.edt.find_one({'user_id': int(user_id), 'bot_id': int(bot_id)})
-    if user:
-        return user.get('configs', default)
-    return default
+        user = await self.edt.find_one({'user_id': int(user_id), 'bot_id': int(bot_id)})
+        if user:
+            return user.get('configs', default)
+        return default
+
 
     async def add_forc(self, datas):
        if not await self.is_forc_exist(datas['bot_id']):
