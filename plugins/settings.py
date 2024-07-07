@@ -6,6 +6,7 @@
 import asyncio 
 from database import db
 from config import Config
+from info import AUTH_CHANNEL
 from translation import Translation
 from pyrogram import Client, filters
 from .test import get_configs, update_configs, CLIENT, parse_buttons
@@ -151,8 +152,8 @@ async def settings_query(bot, query):
         reply_markup=InlineKeyboardMarkup(buttons))
                                
   
-  elif type=="deletecaption":
-     await update_configs(user_id, bot_id, 'forc_id', AUTH_CHANNEL)
+  elif type=="deleteforc":
+     await update_edit(user_id, bot_id, 'forc_id', AUTH_CHANNEL)
      await query.message.edit_text(
         "Successfully Updated",
         reply_markup=InlineKeyboardMarkup(buttons))
