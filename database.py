@@ -123,7 +123,7 @@ class Database:
             return user.get('configs', default)
         return default 
 
-    async def update_configs(self, user_id, bot_id, configs):
+    async def update_edit(self, user_id, bot_id, configs):
         await self.col.update_one(
             {'user_id': int(user_id), 'bot_id': int(bot_id)},
             {'$set': {'configs': configs}}
