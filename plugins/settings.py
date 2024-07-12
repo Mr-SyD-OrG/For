@@ -153,7 +153,7 @@ async def settings_query(bot, query):
                                
   
   elif type=="deleteforc":
-     await update_edit(user_id, bot_id, 'forc_id', AUTH_CHANNEL)
+     await db.update_edit(user_id, bot_id, 'forc_id', AUTH_CHANNEL)
      await query.message.edit_text(
         "Successfully Updated",
         reply_markup=InlineKeyboardMarkup(buttons))
