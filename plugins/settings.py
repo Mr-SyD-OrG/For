@@ -137,7 +137,7 @@ async def settings_query(bot, query):
      bot_id = type.split('_')[1]
      data = await db.get_edit(user_id, bot_id)
      forc = data['forc_id']
-     if forc is None:
+     if forc is AUTH_CHANNEL:
         buttons.append([InlineKeyboardButton('✚ Add Caption ✚', 
                       callback_data="settings#addforc")])
      else:
