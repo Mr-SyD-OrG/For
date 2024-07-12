@@ -90,12 +90,13 @@ async def start(client, message):
         )
         return
     id = bot.me.id
-    bot_id = mongo_db.bots.find_one({'bot_id': id})
-    FORC = await db.get_setings(bot_id)
-    FORC_ID = FORC['forc_id']
+    bot_id = id
+    user_id = message.from_user.id
+    syd = await db.get_edit(bot_id, user_id)
+    FORC_ID = syd['forc_id']
     if FORC_ID and not await is_req_subscribed(client, message):
         try:
-            invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL), creates_join_request=True)
+            invite_link = await client.create_chat_invite_link(int(FORC_ID), creates_join_request=True)
         except ChatAdminRequired:
             logger.error("Make sure Bot is admin in Forcesub channel")
             return
