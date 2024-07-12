@@ -148,7 +148,7 @@ async def settings_query(bot, query):
      buttons.append([InlineKeyboardButton('🔙 Back', 
                       callback_data="settings")])
      await query.message.edit_text(
-        "<b><u>Custom Caption</b></u>\n\nYou Can Set A Custom Caption To Videos And Documents. Normaly Use Its Default Caption\n\n<b><u>Available Fillings :</b></u>\n\n<code>h</code> : File  : Default Caption",
+        "<b><u>Custom  Can Set A Custom Caption . Normaly Use  Default  Fillings :</b> : File  : Default Caption",
         reply_markup=InlineKeyboardMarkup(buttons))
                                
   
