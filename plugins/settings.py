@@ -141,7 +141,7 @@ async def settings_query(bot, query):
         buttons.append([InlineKeyboardButton('✚ Add Caption ✚', 
                       callback_data="settings#addforc")])
      else:
-        buttons.append([InlineKeyboardButton('👀 See Caption', 
+        buttons.append([InlineKeyboardButton('👀 See Fᴏʀᴄᴇ ꜱᴜʙ', 
                       callback_data="settings#seeforc")])
         buttons[-1].append(InlineKeyboardButton('🗑️ Delete Caption', 
                       callback_data="settings#deleteforc"))
@@ -152,13 +152,15 @@ async def settings_query(bot, query):
         reply_markup=InlineKeyboardMarkup(buttons))
                                
   
-  elif type=="deleteforc":
+  elif type.startswith("deleteforc"):
+     bot_id = type.split('_')[1]
      await db.update_edit(user_id, bot_id, 'forc_id', AUTH_CHANNEL)
      await query.message.edit_text(
         "Successfully Updated",
         reply_markup=InlineKeyboardMarkup(buttons))
                               
-  elif type=="addforc":
+  elif type.startswith("addforc"):
+     bot_id = type.split('_')[1]
      await query.message.delete()
      try:
          text = await bot.send_message(user_id, "<b><u>Set Target Chat</u></b>\n\nForward A Message From Your Target Chat\n/cancel - To Cancel This Process")
