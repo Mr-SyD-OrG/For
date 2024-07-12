@@ -174,6 +174,7 @@ async def settings_query(bot, query):
             await forc_ids.delete()
             return await text.edit_text("This Is Not A Forward Message")
          else:
+            bot_id = bot_id
             chat_id = forc_ids.forward_from_chat.id
          await db.update_edit(user_id, bot_id, 'forc_id', chat_id)
          await forc_ids.delete()
