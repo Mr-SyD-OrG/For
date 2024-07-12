@@ -142,9 +142,9 @@ async def settings_query(bot, query):
                       callback_data="settings#addforc")])
      else:
         buttons.append([InlineKeyboardButton('👀 See Caption', 
-                      callback_data="settings#seeforc")
+                      callback_data="settings#seeforc")])
         buttons[-1].append(InlineKeyboardButton('🗑️ Delete Caption', 
-                      callback_data="settings#deleteforc")
+                      callback_data="settings#deleteforc"))
      buttons.append([InlineKeyboardButton('🔙 Back', 
                       callback_data="seteditchan")])
      await query.message.edit_text(
