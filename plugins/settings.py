@@ -18,7 +18,7 @@ CLIENT = CLIENT()
 
 @Client.on_message(filters.private & filters.command(['edit']))
 async def settings(client, message):
-    text="<b>Change Your Settings As Your Wish</b>"
+    text="<b>Cʀᴇᴀᴛᴇ Yᴏᴜʀ Oᴡɴ Bᴏᴛ Δɴᴅ Eᴅɪᴛ ɪᴛ ᴀꜱ ʏᴏᴜʀ ᴡɪꜱʜ ᴍᴀʜɴ.....⚡</b>"
     await message.reply_text(
         text=text,
         reply_markup=main_buttons(),
@@ -47,7 +47,7 @@ async def settings_query(bot, query):
         buttons.append([InlineKeyboardButton(f"{bot['username']}",
                          callback_data=f"settings#editbots_{bot['bot_id']}")])
      buttons.append([InlineKeyboardButton('✚ Aᴅᴅ Bᴏᴛꜱ ✚', 
-                      callback_data="settings#addchannel")])
+                      callback_data="settings#addbot")])
      buttons.append([InlineKeyboardButton('🔙 Back', 
                       callback_data="settings#main")])
      await query.message.edit_text( 
@@ -450,11 +450,6 @@ def main_buttons():
   buttons = [[
        InlineKeyboardButton('⚡ Bᴏᴛꜱ ⚡',
                     callback_data=f'settings#bots')
-       ],[
-       InlineKeyboardButton('✏️ Caption',
-                    callback_data=f'settings#caption'),
-       InlineKeyboardButton('🗃 MongoDB',
-                    callback_data=f'settings#database')
        ],[
        InlineKeyboardButton('🕵‍♀ Filters',
                     callback_data=f'settings#filters'),
