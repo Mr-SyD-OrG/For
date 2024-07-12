@@ -176,7 +176,7 @@ async def settings_query(bot, query):
          await update_edit(user_id, bot_id, 'forc_id', chat_id)
          await forc_ids.delete()
          await text.edit_text(
-            "Successfully Updated")
+            "Successfully Updated",
             reply_markup=InlineKeyboardMarkup(buttons))
      except asyncio.exceptions.TimeoutError:
          await text.edit_text('Process Has Been Automatically Cancelled', reply_markup=InlineKeyboardMarkup(buttons))
