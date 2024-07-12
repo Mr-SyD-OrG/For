@@ -135,7 +135,7 @@ async def settings_query(bot, query):
   elif type.startswith("forc"):
      buttons = []
      bot_id = type.split('_')[1]
-     data = await get_edit(user_id, bot_id)
+     data = await db.get_edit(user_id, bot_id)
      forc = data['forc_id']
      if forc is None:
         buttons.append([InlineKeyboardButton('✚ Add Caption ✚', 
