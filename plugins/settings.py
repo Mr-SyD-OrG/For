@@ -159,6 +159,28 @@ async def settings_query(bot, query):
         reply_markup=InlineKeyboardMarkup(buttons))
                               
   elif type=="addforc":
+     await query.message.delete()
+     try:
+         text = await bot.send_message(user_id, "<b><u>Set Target Chat</u></b>\n\nForward A Message From Your Target Chat\n/cancel - To Cancel This Process")
+         forc_ids = await bot.listen(chat_id=user_id, timeout=300)
+         if forc_ids.text=="/cancel":
+            await forc_ids.delete()
+            return await text.edit_text(
+                  "Process Canceled",
+                  reply_markup=InlineKeyboardMarkup(buttons))
+         elif not forc_ids.forward_date:
+            await forc_ids.delete()
+            return await text.edit_text("This Is Not A Forward Message")
+         else:
+            chat_id = forc_ids.forward_from_chat.id
+         await update_edit(user_id, bot_id, 'forc_id', chat_id)
+         await forc_ids.delete()
+         await text.edit_text(
+            "Successfully Updated")
+            reply_markup=InlineKeyboardMarkup(buttons))
+     except asyncio.exceptions.TimeoutError:
+         await text.edit_text('Process Has Been Automatically Cancelled', reply_markup=InlineKeyboardMarkup(buttons))
+  
   elif type=="caption":
      buttons = []
      data = await get_configs(user_id)
