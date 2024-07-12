@@ -114,7 +114,7 @@ async def settings_query(bot, query):
                                              
   elif type.startswith("editbots"): 
      bot_id = type.split('_')[1]
-     bot = await db.get_bot_details(user_id, chat_id)
+     bot = await db.get_bot_details(user_id, bot_id)
      buttons = [[InlineKeyboardButton('❌ Remove ❌', callback_data=f"settings#removechannel_{bot_id}")
                ],[
                  InlineKeyboardButton('ꜰꜱᴜʙ', callback_data=f"settings#forc_{bot_id}")
