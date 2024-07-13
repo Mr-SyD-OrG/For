@@ -135,6 +135,7 @@ async def settings_query(bot, query):
   elif type.startswith("forc"):
      buttons = []
      bot_id = type.split('_')[1]
+     user_id = query.from_user.id
      data = await db.get_edit(user_id, bot_id)
      forc = data['forc_id']
      if forc is AUTH_CHANNEL:
@@ -154,6 +155,7 @@ async def settings_query(bot, query):
   
   elif type.startswith("deleteforc"):
      bot_id = type.split('_')[1]
+     user_id = query.from_user.id
      await db.update_edit(user_id, bot_id, 'forc_id', AUTH_CHANNEL)
      await query.message.edit_text(
         "Successfully Updated",
