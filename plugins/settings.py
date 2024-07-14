@@ -134,7 +134,7 @@ async def settings_query(bot, query):
 
   elif type.startswith("forc"):
      buttons = []
-     bot_id = type.split('_')[1]
+     bot_id = int(type.split('_')[1])
      user_id = query.from_user.id
      data = await db.get_edit(user_id, bot_id)
      forc = data['forc_id']
@@ -162,7 +162,7 @@ async def settings_query(bot, query):
         reply_markup=InlineKeyboardMarkup(buttons))
                               
   elif type.startswith("addforc"):
-     bot_id = type.split('_')[1]
+     bot_id = int(type.split('_')[1])
      await query.message.delete()
      try:
          text = await bot.send_message(user_id, "<b><u>Set Target Chat</u></b>\n\nForward A Message From Your Target Chat\n/cancel - To Cancel This Process")
@@ -176,7 +176,6 @@ async def settings_query(bot, query):
             await forc_ids.delete()
             return await text.edit_text("This Is Not A Forward Message")
          else:
-            bot_id = bot_id
             chat_id = forc_ids.forward_from_chat.id
          await db.update_edit(user_id, bot_id, 'forc_id', chat_id)
          await forc_ids.delete()
