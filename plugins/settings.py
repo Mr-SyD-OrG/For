@@ -162,7 +162,7 @@ async def settings_query(bot, query):
         reply_markup=InlineKeyboardMarkup(buttons))
                               
   elif type.startswith("addforc"):
-     bot_id = int(type.split('_')[1])
+     bot_id = type.split('_')[1]
      await query.message.delete()
      try:
          text = await bot.send_message(user_id, "<b><u>Set Target Chat</u></b>\n\nForward A Message From Your Target Chat\n/cancel - To Cancel This Process")
